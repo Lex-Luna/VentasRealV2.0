@@ -10,6 +10,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { ClienteComponent } from './Component/cliente/cliente.component';
 import { RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +24,10 @@ import { RouterModule } from '@angular/router';
     MatDialogModule,
     MatCardModule,
     MatButtonModule,
+    /* HttpClient, */
     MatSnackBarModule,
-    RouterModule
+    RouterModule,
+
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
