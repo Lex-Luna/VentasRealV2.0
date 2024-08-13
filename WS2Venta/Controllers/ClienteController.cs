@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using WS2Venta.Models;
 using WS2Venta.Models.Request;
 
@@ -108,7 +109,7 @@ namespace WS2Venta.Controllers
 
                 try
                 {
-                    var lts = db.Clientes.ToList();
+                    var lts = db.Clientes.OrderBy(d=>d.Id).ToList();
                     oRespuesta.Exito = 1;
                     oRespuesta.Data = lts;
                     //return Ok(lts);

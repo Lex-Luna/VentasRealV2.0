@@ -6,11 +6,22 @@ import { Observable } from 'rxjs';
 import { ApiclienteService } from '../../Services/apicliente.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog, MatDialogActions, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogComponent } from './dialog/dialog.component';
+import { DialogRef } from '@angular/cdk/dialog';
+
+
 
 @Component({
   selector: 'app-cliente',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [MatTableModule,
+
+    MatSnackBarModule,
+    MatInputModule,
+    MatButtonModule],
   templateUrl: './cliente.component.html',
   styleUrl: './cliente.component.scss'
 })
@@ -18,17 +29,30 @@ export class ClienteComponent {
   public lst: any[] = [];
   public columnas: string[] = ["id", "nombre"];
   constructor(
-    private apiCliente: ApiclienteService
+    private apiCliente: ApiclienteService,
+    private dialog: MatDialog
   ) {
-    apiCliente.getClientes().subscribe(respuesta => {
+    /* apiCliente.getClientes().subscribe(respuesta => {
       this.lst = respuesta.data;
-      console.log(respuesta);
-    })
+      console.log(respuesta); 
+    })*/
+  }
+  ngOnInit(): void {
+    this.getCliente();
   }
   getCliente() {
-    /* this.apiCliente.getClientes().subscribe(respuesta => {
+    this.apiCliente.getClientes().subscribe(respuesta => {
       this.lst = respuesta.data;
-      console.log(respuesta);
-    }) */
+
+    })
+  }
+  openAdd() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: "300"
+    }
+    );
+    dialogRef.afterClosed().subscribe(result => this.getCliente()
+    )
+
   }
 }
