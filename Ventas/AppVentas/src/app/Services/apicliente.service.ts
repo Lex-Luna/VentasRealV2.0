@@ -22,19 +22,22 @@ export class ApiclienteService {
   //COnstructor
   private _http = inject(HttpClient);
 
-  constructor(/* private _http: HttpClient */) {
+  constructor() {
 
   }
 
-  /* getCliente(): Observable<Respuesta>
-  {
-    return this.http.get<Respuesta>(this._url);
-  } */
+
   getClientes(): Observable<Respuesta> {
     return this._http.get<Respuesta>(this.url);
 
   }
   add(cliente: Cliente): Observable<Respuesta> {
     return this._http.post<Respuesta>(this.url, cliente, httpOption);
+  }
+  edit(cliente: Cliente): Observable<Respuesta> {
+    return this._http.put<Respuesta>(this.url, cliente, httpOption);
+  }
+  delete(id: number): Observable<Respuesta> {
+    return this._http.delete<Respuesta>(`{this.url}/$(id)`);
   }
 }

@@ -9,8 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogActions, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { DialogComponent } from './dialog/dialog.component';
+import { DialogComponent } from '../../Commons/dialog/dialog.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { Cliente } from '../../Models/Cliente';
 
 
 
@@ -27,15 +28,12 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class ClienteComponent {
   public lst: any[] = [];
-  public columnas: string[] = ["id", "nombre"];
+  public columnas: string[] = ["id", "nombre", "actions"];
   constructor(
     private apiCliente: ApiclienteService,
     private dialog: MatDialog
   ) {
-    /* apiCliente.getClientes().subscribe(respuesta => {
-      this.lst = respuesta.data;
-      console.log(respuesta); 
-    })*/
+
   }
   ngOnInit(): void {
     this.getCliente();
@@ -53,6 +51,14 @@ export class ClienteComponent {
     );
     dialogRef.afterClosed().subscribe(result => this.getCliente()
     )
-
   }
+  openEdit(cliente: Cliente) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: "300",
+      data: cliente
+    });
+    dialogRef.afterClosed().subscribe(result => this.getCliente()
+    )
+  }
+
 }

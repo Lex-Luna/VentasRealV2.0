@@ -27,7 +27,6 @@ namespace WS2Venta.Controllers
                     oRespuesta.Exito = 1;
                     oRespuesta.Mensaje = "Exito HP";
 
-                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -47,17 +46,13 @@ namespace WS2Venta.Controllers
             Respuesta oRespuesta = new Respuesta();
             using (C2ventaRealContext db = new C2ventaRealContext())
             {
-
                 try
                 {
-
                     Cliente bdCliente = db.Clientes.Find(clienteRequest.id);
                     bdCliente.Nombre = clienteRequest.Nombre;
                     db.Clientes.Entry(bdCliente).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
-
-                    return Ok();
                 }
                 catch (Exception ex)
                 {
@@ -87,7 +82,7 @@ namespace WS2Venta.Controllers
                     db.SaveChanges();
                     oRespuesta.Exito = 1;
                     
-                    return Ok();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -109,10 +104,10 @@ namespace WS2Venta.Controllers
 
                 try
                 {
-                    var lts = db.Clientes.OrderBy(d=>d.Id).ToList();
+                    var lts = db.Clientes.OrderByDescending(d=>d.Id).ToList();
                     oRespuesta.Exito = 1;
                     oRespuesta.Data = lts;
-                    //return Ok(lts);
+                    
                 }
                 catch (Exception ex)
                 {
